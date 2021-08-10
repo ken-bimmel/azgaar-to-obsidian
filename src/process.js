@@ -34,7 +34,7 @@ function cleanStateFieldNames(statesParsed) {
 function makeStatesFiles(statesList) {
     return statesList.map((state) => {
         const md = Mustache.render(StateTemplate, state);
-        return new File([md], `${state.State}.md`, { type: "text/plain" });
+        return new File([md], `states/${state.State}.md`, { type: "text/plain" });
     })
 }
 
@@ -69,5 +69,5 @@ export async function buildVault(
     console.log(statesCleaned);
     const statesRendered = statesCleaned.map((e) => Mustache.render(StateTemplate, e));
     console.log(statesRendered[5]);
-    console.log(makeStatesFiles(statesCleaned))
+    return makeStatesFiles(statesCleaned)
 }

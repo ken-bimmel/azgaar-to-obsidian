@@ -11,6 +11,7 @@ import {
   createTheme,
   ThemeProvider
 } from '@material-ui/core/styles';
+import { downloadZip } from "client-zip";
 
 import InputAccordian from "./InputAccordian";
 import { buildVault } from "./process";
@@ -37,10 +38,13 @@ function App() {
   const [buildingVault, setBuildingVault] = useState(false);
   const [buildError, setBuildError] = useState(null);
 
+  const [fileBlob, setFileBlob] = useState(null);
+
   async function makeObsidianVault() {
     setBuildingVault(true);
     try {
-      await buildVault(states, provinces, diplomacy, cultures, zones, religions, burgs, rivers, military);
+      const files = await buildVault(states, provinces, diplomacy, cultures, zones, religions, burgs, rivers, military);
+      setFileBlob(await downloadZip(files).blob())
     }
     catch (error) {
       setBuildError(error.message);
@@ -88,6 +92,16 @@ function App() {
                 Make Obsidian Vault
               </Button>
               {buildingVault ? <CircularProgress /> : null}
+              {fileBlob ?
+                <Button
+                  color="primary"
+                  variant="contained"
+                  href={URL.createObjectURL(fileBlob)}
+                  download="vault.zip"
+                >
+                  Download Vault
+                </Button>
+                : null}
             </CardActions>
           </Card>
         </Grid>
