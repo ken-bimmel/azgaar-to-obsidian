@@ -1,3 +1,10 @@
+function makeGenerationConstants(template, folder, nameField) {
+    return {
+        template,
+        folder,
+        nameField
+    }
+}
 const StateTemplate = `
 # {{State}}
 ---
@@ -17,9 +24,33 @@ const StateTemplate = `
 | Total Population | {{TotalPopulation}} |
 | Rural Population | {{RuralPopulation}} |
 | Urban Population | {{UrbanPopulation}} |
+---
+**Tags:** #State
+---
 `
-const ProvinceTemplate = `a`;
+const StateGenerationConfig = makeGenerationConstants(StateTemplate, "states", "State");
+const ProvinceTemplate = `
+# {{Province}}
+---
+| Attribute | Value |
+| --- | --- |
+| ID | {{Id}} |
+| Province | {{Province}} |
+| Form | [[{{Form}}]] |
+| State | [[{{State}}]] |
+| Color | {{Color}} |
+| Capital | [[{{Capital}}]] |
+| Area (mi^2) | {{Area}} |
+| Total Population | {{TotalPopulation}} |
+| Rural Population | {{RuralPopulation}} |
+| Urban Population | {{UrbanPopulation}} |
+---
+**Tags:** #Province
+---
+`;
+
+const ProvinceGenerationConfig = makeGenerationConstants(ProvinceTemplate, "provinces", "Province");
 export {
-    StateTemplate,
-    ProvinceTemplate,
+    StateGenerationConfig,
+    ProvinceGenerationConfig,
 }

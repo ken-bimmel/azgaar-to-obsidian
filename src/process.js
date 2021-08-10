@@ -1,10 +1,10 @@
 import Papa from "papaparse";
 import Mustache from "mustache";
-import { StateTemplate } from "./templates";
+import { StateGenerationConfig, ProvinceGenerationConfig } from "./templates";
 
 async function parseField(field) {
     if (field === null) {
-        return field;
+        return [];
     }
     const parsedField = await Papa.parse(field, { header: true, skipEmptyLines: true });
     console.log(parsedField);
@@ -14,9 +14,8 @@ async function parseField(field) {
     return parsedField.data;
 }
 
-function cleanStateFieldNames(statesParsed) {
-    console.log(statesParsed);
-    return statesParsed.map((element) => {
+function cleanAreaFieldNames(areasParsed) {
+    return areasParsed.map((element) => {
         const area = element["Area mi2"] || element["Area km2"];
         const totalPop = element["Total Population"];
         const ruralPop = element["Rural Population"];
@@ -31,11 +30,12 @@ function cleanStateFieldNames(statesParsed) {
     })
 }
 
-function makeStatesFiles(statesList) {
-    return statesList.map((state) => {
-        const md = Mustache.render(StateTemplate, state);
-        return new File([md], `states/${state.State}.md`, { type: "text/plain" });
-    })
+function makeFiles(objectList, configObject) {
+    const { template, folder, nameField } = configObject;
+    return objectList.map((object => {
+        const md = Mustache.render(template, object);
+        return new File([md], `${folder}/${object[nameField]}.md`, { type: "text/plain" })
+    }))
 }
 
 export async function buildVault(
@@ -50,24 +50,33 @@ export async function buildVault(
     military = null
 ) {
     let statesParsed;
+    let provincesParsed;
+    let diplomacyParsed;
+    let culturesParsed;
+    let zonesParsed;
+    let religionsParsed;
+    let burgsParsed;
+    let riversParsed;
+    let militaryParsed;
     try {
         statesParsed = await parseField(states);
-        const provincesParsed = await parseField(provinces);
-        const diplomacyParsed = await parseField(diplomacy);
-        const culturesParsed = await parseField(cultures);
-        const zonesParsed = await parseField(zones);
-        const religionsParsed = await parseField(religions);
-        const burgsParsed = await parseField(burgs);
-        const riversParsed = await parseField(rivers);
-        const militaryParsed = await parseField(military);
+        provincesParsed = await parseField(provinces);
+        diplomacyParsed = await parseField(diplomacy);
+        culturesParsed = await parseField(cultures);
+        zonesParsed = await parseField(zones);
+        religionsParsed = await parseField(religions);
+        burgsParsed = await parseField(burgs);
+        riversParsed = await parseField(rivers);
+        militaryParsed = await parseField(military);
     }
     catch (error) {
         throw error
     }
 
-    const statesCleaned = cleanStateFieldNames(statesParsed);
-    console.log(statesCleaned);
-    const statesRendered = statesCleaned.map((e) => Mustache.render(StateTemplate, e));
-    console.log(statesRendered[5]);
-    return makeStatesFiles(statesCleaned)
+    const statesCleaned = cleanAreaFieldNames(statesParsed);
+    const provincesCleaned = cleanAreaFieldNames(provincesParsed);
+    return [
+        ...makeFiles(statesCleaned, StateGenerationConfig),
+        ...makeFiles(provincesCleaned, ProvinceGenerationConfig)
+    ];
 }
