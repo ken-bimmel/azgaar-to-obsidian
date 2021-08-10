@@ -12,13 +12,16 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Grid
+  Grid,
+  CardActionArea,
+  CircularProgress
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   createTheme,
   ThemeProvider
 } from '@material-ui/core/styles';
+
+import InputAccordian from "./InputAccordian";
 
 function App() {
   const theme = createTheme(
@@ -28,6 +31,23 @@ function App() {
       }
     }
   )
+
+  const [states, setStates] = useState(null);
+  const [provinces, setProvinces] = useState(null);
+  const [diplomacy, setDiplomacy] = useState(null);
+  const [cultures, setCultures] = useState(null);
+  const [zones, setZones] = useState(null);
+  const [religions, setReligions] = useState(null);
+  const [burgs, setBurgs] = useState(null);
+  const [rivers, setRivers] = useState(null);
+  const [military, setMilitary] = useState(null);
+
+  const [buildingVault, setBuildingVault] = useState(false);
+
+  function makeObsidianVault() {
+    setBuildingVault(true);
+
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -40,25 +60,31 @@ function App() {
         style={{ padding: "16px" }}
       >
         <Grid item xs="9">
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              Accordion 1
-            </AccordionSummary>
-            <AccordionDetails>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
-            </AccordionDetails>
-          </Accordion>
+          <InputAccordian title="States" changeCallback={setStates} />
+          <InputAccordian title="Provinces" changeCallback={setProvinces} />
+          <InputAccordian title="Diplomacy" changeCallback={setDiplomacy} />
+          <InputAccordian title="Cultures" changeCallback={setCultures} />
+          <InputAccordian title="Zones" changeCallback={setZones} />
+          <InputAccordian title="Religions" changeCallback={setReligions} />
+          <InputAccordian title="Burgs" changeCallback={setBurgs} />
+          <InputAccordian title="Rivers" changeCallback={setRivers} />
+          <InputAccordian title="Military" changeCallback={setMilitary} />
         </Grid>
         <Grid item xs="3">
           <Card>
             <CardContent>
               This is the explanation
             </CardContent>
+            <CardActions>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={makeObsidianVault}
+              >
+                Make Obsidian Vault
+              </Button>
+              {buildingVault ? <CircularProgress /> : null}
+            </CardActions>
           </Card>
         </Grid>
       </Grid>
