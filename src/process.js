@@ -34,7 +34,8 @@ export async function buildVault(
         const burgsParsed = await parseField(burgs);
         const riversParsed = await parseField(rivers);
         const militaryParsed = await parseField(military);
-    } catch (error) {
+    }
+    catch (error) {
         throw error
     }
 }

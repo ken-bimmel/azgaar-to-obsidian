@@ -41,9 +41,11 @@ function App() {
     setBuildingVault(true);
     try {
       await buildVault(states, provinces, diplomacy, cultures, zones, religions, burgs, rivers, military);
-    } catch (error) {
+    }
+    catch (error) {
       setBuildError(error.message);
-    } finally {
+    }
+    finally {
       setBuildingVault(false);
     }
   }

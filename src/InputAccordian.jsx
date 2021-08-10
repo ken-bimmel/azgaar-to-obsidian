@@ -4,6 +4,7 @@ import {
     AccordionDetails,
     AccordionSummary,
     Grid,
+    Input,
     TextField
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -23,8 +24,18 @@ function InputAccordian(props) {
     const [value, setValue] = useState(null);
 
     function handleChange(event) {
-        changeCallback(event.target.value);
-        setValue(event.target.value);
+        const files = event.target.files;
+        if (files.length === 0) {
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const text = event.target.result;
+            changeCallback(text);
+            setValue(text);
+        }
+        reader.readAsText(files[0]);
+
     }
 
     return (
@@ -42,13 +53,15 @@ function InputAccordian(props) {
                 </Grid>
             </AccordionSummary>
             <AccordionDetails>
-                <TextField
+                <Input
                     label={`Paste the contents of the ${title} CSV here`}
-                    variant="outlined"
-                    multiline
-                    maxRows="4"
-                    fullWidth
+                    // variant="outlined"
+                    // multiline
+                    // maxRows="4"
+                    // fullWidth
                     onChange={handleChange}
+                    type="file"
+                    inputProps={{ accept: ".csv" }}
                 />
             </AccordionDetails>
         </Accordion>
