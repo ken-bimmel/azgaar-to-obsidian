@@ -46,9 +46,9 @@ function App() {
       const files = await buildVault(states, provinces, diplomacy, cultures, zones, religions, burgs, rivers, military);
       setFileBlob(await downloadZip(files).blob())
     }
-    catch (error) {
-      setBuildError(error.message);
-    }
+    // catch (error) {
+    //   setBuildError(error.message);
+    // }
     finally {
       setBuildingVault(false);
     }

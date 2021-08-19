@@ -1,6 +1,14 @@
 import Papa from "papaparse";
 import Mustache from "mustache";
-import { StateGenerationConfig, ProvinceGenerationConfig } from "./templates";
+import {
+    StateGenerationConfig,
+    ProvinceGenerationConfig,
+    BurgGenerationConfig,
+} from "./templates";
+import {
+    cleanAreaFieldNames,
+    cleanBurgFieldNames,
+} from "./cleanData";
 
 async function parseField(field) {
     if (field === null) {
@@ -14,27 +22,11 @@ async function parseField(field) {
     return parsedField.data;
 }
 
-function cleanAreaFieldNames(areasParsed) {
-    return areasParsed.map((element) => {
-        const area = element["Area mi2"] || element["Area km2"];
-        const totalPop = element["Total Population"];
-        const ruralPop = element["Rural Population"];
-        const urbanPop = element["Urban Population"];
-        return {
-            ...element,
-            "Area": area,
-            "TotalPopulation": totalPop,
-            "RuralPopulation": ruralPop,
-            "UrbanPopulation": urbanPop,
-        }
-    })
-}
-
 function makeFiles(objectList, configObject) {
-    const { template, folder, nameField } = configObject;
+    const { template, filepathGenerator } = configObject;
     return objectList.map((object => {
         const md = Mustache.render(template, object);
-        return new File([md], `${folder}/${object[nameField]}.md`, { type: "text/plain" })
+        return new File([md], filepathGenerator(object), { type: "text/plain" })
     }))
 }
 
@@ -75,8 +67,10 @@ export async function buildVault(
 
     const statesCleaned = cleanAreaFieldNames(statesParsed);
     const provincesCleaned = cleanAreaFieldNames(provincesParsed);
+    const burgsCleaned = cleanBurgFieldNames(burgsParsed);
     return [
         ...makeFiles(statesCleaned, StateGenerationConfig),
-        ...makeFiles(provincesCleaned, ProvinceGenerationConfig)
+        ...makeFiles(provincesCleaned, ProvinceGenerationConfig),
+        ...makeFiles(burgsCleaned, BurgGenerationConfig),
     ];
 }
