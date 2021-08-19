@@ -1,6 +1,4 @@
-const STATE_FIELD = "State";
-const PROVINCE_FIELD = "Province";
-const BURG_FIELD = "Burg";
+import { STATE_FIELD, PROVINCE_FIELD, BURG_FIELD } from "./constants";
 
 function makeGenerationConstants(template, filepathGenerator) {
     return {
@@ -29,7 +27,25 @@ const StateTemplate =
 | Rural Population | {{RuralPopulation}} |
 | Urban Population | {{UrbanPopulation}} |
 ---
-**Tags:** #State
+**Tags:** #State #{{State}}
+---
+
+## Provinces
+---
+| Province | Area | Population |
+| --- | --- | --- |
+{{#provinces}}
+| [[{{Province}}]] | {{Area}} | {{TotalPopulation}} |
+{{/provinces}}
+---
+
+## Burgs
+---
+| Burg | Province | Population |
+| --- | --- | --- |
+{{#burgs}}
+| [[{{Burg}}]] | [[{{Province}}]] | {{Population}} |
+{{/burgs}}
 ---
 `
 function makeStateFileName(object) {
@@ -53,7 +69,16 @@ const ProvinceTemplate =
 | Rural Population | {{RuralPopulation}} |
 | Urban Population | {{UrbanPopulation}} |
 ---
-**Tags:** #Province
+**Tags:** #Province #{{State}} #{{Province}}
+---
+
+## Burgs
+---
+| Burg | Population |
+| --- | --- |
+{{#burgs}}
+| [[{{Burg}}]] | {{Population}} |
+{{/burgs}}
 ---
 `;
 function makeProvinceFileName(object) {
@@ -76,7 +101,7 @@ const BurgTemplate =
 | Latitude | {{Latitude}} |
 | Longitude | {{Longitude}} |
 ---
-**Tags:** #Burg
+**Tags:** #Burg #{{State}} #{{Province}} #{{Burg}}
 ---
 
 ## Features

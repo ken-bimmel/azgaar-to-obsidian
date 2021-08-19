@@ -9,6 +9,7 @@ import {
     cleanAreaFieldNames,
     cleanBurgFieldNames,
 } from "./cleanData";
+import { buildNestedStates } from "./buildNestedData";
 
 async function parseField(field) {
     if (field === null) {
@@ -68,6 +69,9 @@ export async function buildVault(
     const statesCleaned = cleanAreaFieldNames(statesParsed);
     const provincesCleaned = cleanAreaFieldNames(provincesParsed);
     const burgsCleaned = cleanBurgFieldNames(burgsParsed);
+
+    const nestedStates = buildNestedStates(statesCleaned, provincesCleaned, burgsCleaned);
+    console.log(nestedStates);
     return [
         ...makeFiles(statesCleaned, StateGenerationConfig),
         ...makeFiles(provincesCleaned, ProvinceGenerationConfig),
