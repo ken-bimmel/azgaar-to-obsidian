@@ -54,6 +54,11 @@ function App() {
     }
   }
 
+  async function setMapFile(mapValue) {
+    const splitMap = mapValue.split("\r\n");
+    console.log(splitMap);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Grid
@@ -65,6 +70,7 @@ function App() {
         style={{ padding: "16px" }}
       >
         <Grid item xs={9}>
+          <InputAccordian title="Map File" changeCallback={setMapFile} />
           <InputAccordian title="States" changeCallback={setStates} />
           <InputAccordian title="Provinces" changeCallback={setProvinces} />
           <InputAccordian title="Diplomacy" changeCallback={setDiplomacy} />
