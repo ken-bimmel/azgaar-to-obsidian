@@ -11,16 +11,16 @@ import {
  * Templates
  */
 const StateTemplate =
-    `# {{State}}
+    `# {{{State}}}
 ---
 | Attribute | Value |
 | --- | --- |
 | ID | {{Id}} |
-| State | {{State}} |
+| State Full Name | {{{FullName}}} |
 | Form | [[{{Form}}]] |
 | Color | {{Color}} |
-| Capital | [[{{Capital}}]] |
-| Culture | [[{{Culture}}]] |
+| Capital | [[{{{Capital}}}]] |
+| Culture | [[{{{Culture}}}]] |
 | Type | [[{{Type}}]] |
 | Expansionism | {{Expansionism}} |
 | Cells | {{Cells}} |
@@ -30,7 +30,7 @@ const StateTemplate =
 | Rural Population | {{RuralPopulation}} |
 | Urban Population | {{UrbanPopulation}} |
 ---
-**Tags:** #State #{{StateTag}}
+**Tags:** #State #{{{StateTag}}}
 ---
 
 ## Provinces
@@ -38,7 +38,7 @@ const StateTemplate =
 | Province | Area | Population |
 | --- | --- | --- |
 {{#provinces}}
-| [[{{Province}}]] | {{Area}} | {{TotalPopulation}} |
+| [[{{{Province}}}]] | {{Area}} | {{TotalPopulation}} |
 {{/provinces}}
 ---
 
@@ -47,7 +47,7 @@ const StateTemplate =
 | Burg | Province | Population |
 | --- | --- | --- |
 {{#burgs}}
-| [[{{Burg}}]] | [[{{Province}}]] | {{Population}} |
+| [[{{{Burg}}}]] | [[{{{Province}}}]] | {{Population}} |
 {{/burgs}}
 ---
 
@@ -78,27 +78,27 @@ const StateTemplate =
 | State | Relationship |
 | --- | --- |
 {{#diplomacy}}
-| [[{{RelatedState}}]] | {{Relationship}} |
+| [[{{{RelatedState}}}]] | {{Relationship}} |
 {{/diplomacy}}
 `;
 
 const ProvinceTemplate =
-    `# {{Province}}
+    `# {{{Province}}}
 ---
 | Attribute | Value |
 | --- | --- |
 | ID | {{Id}} |
-| Province | {{Province}} |
+| Province Full Name | {{{FullName}}} |
 | Form | [[{{Form}}]] |
-| State | [[{{State}}]] |
+| State | [[{{{State}}}]] |
 | Color | {{Color}} |
-| Capital | [[{{Capital}}]] |
+| Capital | [[{{{Capital}}}]] |
 | Area (mi^2) | {{Area}} |
 | Total Population | {{TotalPopulation}} |
 | Rural Population | {{RuralPopulation}} |
 | Urban Population | {{UrbanPopulation}} |
 ---
-**Tags:** #Province #{{StateTag}} #{{ProvinceTag}}
+**Tags:** #Province #{{{StateTag}}} #{{{ProvinceTag}}}
 ---
 
 ## Burgs
@@ -106,27 +106,27 @@ const ProvinceTemplate =
 | Burg | Population |
 | --- | --- |
 {{#burgs}}
-| [[{{Burg}}]] | {{Population}} |
+| [[{{{Burg}}}]] | {{Population}} |
 {{/burgs}}
 ---
 `;
 
 const BurgTemplate =
-    `# {{ Burg }}
+    `# {{{ Burg }}}
 ---
 | Attribute | Value |
 | --- | --- |
 | ID | {{Id}} |
-| Province | [[{{Province}}]] |
-| State | [[{{State}}]] |
-| Culture | [[{{Culture}}]] |
-| Religion | [[{{Religion}}]] |
+| Province | [[{{{Province}}}]] |
+| State | [[{{{State}}}]] |
+| Culture | [[{{{Culture}}}]] |
+| Religion | [[{{{Religion}}}]] |
 | Population | {{Population}} |
 | Elevation (ft) | {{Elevation}} |
 | Latitude | {{Latitude}} |
 | Longitude | {{Longitude}} |
 ---
-**Tags:** #Burg #{{StateTag}} #{{ProvinceTag}} #{{BurgTag}}
+**Tags:** #Burg #{{{StateTag}}} #{{{ProvinceTag}}} #{{{BurgTag}}}
 ---
 
 ## Features
@@ -143,51 +143,51 @@ const BurgTemplate =
 `;
 
 const ReligionTemplate =
-    `# {{Religion}}
+    `# {{{Religion}}}
 ---
 | Attribute | Value |
 | --- | --- |
 | ID | {{Id}} |
-| Deity | [[{{Deity}}]] |
+| Deity | [[{{{Deity}}}]] |
 | Form | {{Form}} |
 | Type | {{Type}} |
 | Color | {{Color}} |
 | Number of believers | {{Believers}} |
 | Area under sway | {{Area}} |
 ---
-**Tags:** #Religion #{{ReligionTag}} #{{DeityTag}}
+**Tags:** #Religion #{{{ReligionTag}}} #{{{DeityTag}}}
 ---`
 
 const CultureTemplate =
-    `# {{Culture}}
+    `# {{{Culture}}}
 ---
 | Attribute | Value |
 | --- | --- |
 | ID | {{Id}} |
 | Type | {{Type}} |
-| Namebase | {{Namebase}} |
+| Namebase | {{{Namebase}}} |
 | Emblem | {{Emblem}} |
 | Color | {{Color}} |
 | Population | {{Population}} |
 | Area occupied | {{Area}} |
 | Expansionism | {{Expansionism}} |
 ---
-**Tags:** #Culture #{{CultureTag}} #{{TypeTag}}
+**Tags:** #Culture #{{{CultureTag}}} #{{TypeTag}}
 ---`
 
 const RiverTemplate =
-    `# {{River}}
+    `# {{{River}}}
 ---
 | Attribute | Value |
 | --- | --- |
 | ID | {{Id}} |
-| Basin | {{Basin}} |
+| Basin | {{{Basin}}} |
 | Discharge | {{Discharge}} |
 | Length | {{Length}} |
 | Type | {{Type}} |
 | Width | {{Width}} |
 ---
-**Tags:** #River #{{RiverTag}}
+**Tags:** #River #{{{RiverTag}}} #{{{BasinTag}}}
 ---`
 
 /*

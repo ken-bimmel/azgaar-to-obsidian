@@ -1,6 +1,7 @@
 // TODO: merge these with makeMap from buildNestedData?
 
 import {
+    BASIN_TAG,
     BURG_FIELD,
     CULTURE_FIELD,
     DIETY_FIELD,
@@ -27,6 +28,7 @@ function cleanAreaElement(element) {
     const totalPop = element["Total Population"];
     const ruralPop = element["Rural Population"];
     const urbanPop = element["Urban Population"];
+    const fullName = element["Full Name"];
     const tagFields = makeTagFields(element, [STATE_FIELD, PROVINCE_FIELD])
     return {
         ...element,
@@ -35,6 +37,7 @@ function cleanAreaElement(element) {
         "TotalPopulation": totalPop,
         "RuralPopulation": ruralPop,
         "UrbanPopulation": urbanPop,
+        "FullName": fullName,
     };
 }
 
@@ -136,7 +139,7 @@ function cleanCultureElements(cultures) {
 
 function cleanRiverElements(rivers) {
     return rivers.map((element) => {
-        const tagFields = makeTagFields(element, [RIVER_FIELD]);
+        const tagFields = makeTagFields(element, [RIVER_FIELD, BASIN_TAG]);
         return {
             ...element,
             ...tagFields,

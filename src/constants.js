@@ -9,6 +9,7 @@ const DIPLOMACY_STATE_FIELD = "";
 
 const DIETY_FIELD = "Deity";
 const TYPE_FIELD = "Type";
+const BASIN_TAG = "Basin";
 
 export {
     STATE_FIELD,
@@ -20,4 +21,5 @@ export {
     DIPLOMACY_STATE_FIELD,
     DIETY_FIELD,
     TYPE_FIELD,
+    BASIN_TAG,
 };

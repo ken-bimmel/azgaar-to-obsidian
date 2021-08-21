@@ -37,6 +37,7 @@ async function parseField(field, name) {
             return [];
         }
         const parsedField = await Papa.parse(field, { header: true, skipEmptyLines: true });
+        // console.log(parsedField)
         if (parsedField.errors.length > 0) {
             throw new Error(parsedField.errors[0].message)
         }
@@ -50,7 +51,7 @@ function makeFiles(objectList, configObject) {
     const { template, filepathGenerator } = configObject;
     return objectList.map((object => {
         const md = Mustache.render(template, object);
-        if (configObject === BurgGenerationConfig) {
+        if (configObject === StateGenerationConfig) {
             console.log(md, object);
         }
         return new File([md], filepathGenerator(object), { type: "text/plain" })
