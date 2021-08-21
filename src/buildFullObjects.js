@@ -4,7 +4,6 @@ import {
 } from "./constants";
 
 function buildFullStates(states, mappedProvinces, mappedBurgs, mappedMilitary, mappedDiplomacy) {
-    console.log({ states, mappedBurgs });
     return states.map((element) => {
         const key = element[STATE_FIELD];
         const military = mappedMilitary[key] && mappedMilitary[key].length > 0 ? mappedMilitary[key][0] : null;
