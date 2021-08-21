@@ -39,19 +39,25 @@ function App() {
 
   const [fileBlob, setFileBlob] = useState(null);
 
+  function clearError() {
+    setBuildError(null);
+  }
+
   async function makeObsidianVault() {
     setBuildingVault(true);
     try {
+      clearError();
       const files = await buildVault(states, provinces, diplomacy, cultures, religions, burgs, rivers, military);
       setFileBlob(await downloadZip(files).blob())
     }
-    // catch (error) {
-    //   setBuildError(error.message);
-    // }
+    catch (error) {
+      setBuildError(error.message);
+    }
     finally {
       setBuildingVault(false);
     }
   }
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -74,34 +80,52 @@ function App() {
           <InputAccordian title="Military" changeCallback={setMilitary} />
         </Grid>
         <Grid item xs={3}>
-          <Card>
-            <CardContent>
-              This is the explanation.
-              If error on find one value in parsing file, remove trailing newline
-              <br />
-              {buildError}
-            </CardContent>
-            <CardActions>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={makeObsidianVault}
-              >
-                Make Obsidian Vault
-              </Button>
-              {buildingVault ? <CircularProgress /> : null}
-              {fileBlob ?
-                <Button
-                  color="primary"
-                  variant="contained"
-                  href={URL.createObjectURL(fileBlob)}
-                  download="vault.zip"
-                >
-                  Download Vault
-                </Button>
+          <Grid
+            container
+            direction="column"
+            spacing={2}
+          >
+            <Grid item>
+              <Card>
+                <CardContent>
+                  This is the explanation.
+                  If error on find one value in parsing file, remove trailing newline
+                </CardContent>
+                <CardActions>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={makeObsidianVault}
+                  >
+                    Make Obsidian Vault
+                  </Button>
+                  {buildingVault ? <CircularProgress /> : null}
+                  {fileBlob ?
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      href={URL.createObjectURL(fileBlob)}
+                      download="vault.zip"
+                    >
+                      Download Vault
+                    </Button>
+                    : null}
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item>
+              {buildError ?
+                <Card style={{ "background": "#840e0e" }}>
+                  <CardContent>
+                    {buildError}
+                  </CardContent>
+                  <CardActions>
+                    <Button onClick={clearError}>Clear Error</Button>
+                  </CardActions>
+                </Card>
                 : null}
-            </CardActions>
-          </Card>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </ThemeProvider>
