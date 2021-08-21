@@ -10,7 +10,7 @@ import {
 } from "./templates";
 import {
     cleanAndMap,
-    cleanAreaElements,
+    cleanStateElements,
     cleanAreaElement,
     cleanBurgElement,
     cleanMilitaryElement,
@@ -57,36 +57,25 @@ export async function buildVault(
     rivers = null,
     military = null
 ) {
-    let statesParsed;
-    let provincesParsed;
-    let diplomacyParsed;
-    let culturesParsed;
-    let religionsParsed;
-    let burgsParsed;
-    let riversParsed;
-    let militaryParsed;
-    try {
-        statesParsed = await parseField(states);
-        provincesParsed = await parseField(provinces);
-        diplomacyParsed = await parseField(diplomacy);
-        culturesParsed = await parseField(cultures);
-        religionsParsed = await parseField(religions);
-        burgsParsed = await parseField(burgs);
-        riversParsed = await parseField(rivers);
-        militaryParsed = await parseField(military);
-    }
-    catch (error) {
-        throw error
-    }
+    const statesParsed = await parseField(states);
+    const provincesParsed = await parseField(provinces);
+    const diplomacyParsed = await parseField(diplomacy);
+    const culturesParsed = await parseField(cultures);
+    const religionsParsed = await parseField(religions);
+    const burgsParsed = await parseField(burgs);
+    const riversParsed = await parseField(rivers);
+    const militaryParsed = await parseField(military);
 
-    const statesCleaned = cleanAreaElements(statesParsed);
-    const provinceMap = cleanAndMap(provincesParsed, cleanAreaElement, STATE_FIELD);
-    const burgMap = cleanAndMap(burgsParsed, cleanBurgElement, STATE_FIELD);
-    const militaryMap = cleanAndMap(militaryParsed, cleanMilitaryElement, STATE_FIELD);
-    const diplomacyMap = cleanAndMap(diplomacyParsed, cleanDiplomacyElement, DIPLOMACY_STATE_FIELD);
-    const fullStates = buildFullStates(statesCleaned, provinceMap, burgMap, militaryMap, diplomacyMap);
+    const fullStates = buildFullStates(
+        cleanStateElements(statesParsed),
+        cleanAndMap(provincesParsed, cleanAreaElement, STATE_FIELD),
+        cleanAndMap(burgsParsed, cleanBurgElement, STATE_FIELD),
+        cleanAndMap(militaryParsed, cleanMilitaryElement, STATE_FIELD),
+        cleanAndMap(diplomacyParsed, cleanDiplomacyElement, DIPLOMACY_STATE_FIELD)
+    );
     const religionsCleaned = cleanReligionElements(religionsParsed);
     const culturesCleaned = cleanCultureElements(culturesParsed);
+
     return [
         ...makeFiles(fullStates, StateGenerationConfig),
         ...makeFiles(religionsCleaned, ReligionGenerationConfig),

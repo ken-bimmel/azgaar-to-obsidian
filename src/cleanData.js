@@ -25,7 +25,7 @@ function cleanAreaElement(element) {
     };
 }
 
-function cleanAreaElements(areas) {
+function cleanStateElements(areas) {
     return areas.map((element) => cleanAreaElement(element))
 }
 
@@ -121,11 +121,11 @@ function cleanAndMap(list, cleaningFunc, idKey) {
 }
 
 export {
-    cleanAreaElements,
     cleanAreaElement,
     cleanBurgElement,
     cleanMilitaryElement,
     cleanDiplomacyElement,
+    cleanStateElements,
     cleanReligionElements,
     cleanCultureElements,
     cleanAndMap,
