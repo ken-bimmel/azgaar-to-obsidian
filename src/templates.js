@@ -1,4 +1,10 @@
-import { STATE_FIELD, PROVINCE_FIELD, BURG_FIELD, RELIGION_FIELD } from "./constants";
+import {
+    STATE_FIELD,
+    PROVINCE_FIELD,
+    BURG_FIELD,
+    RELIGION_FIELD,
+    CULTURE_FIELD
+} from "./constants";
 
 /*
  * Templates
@@ -150,10 +156,27 @@ const ReligionTemplate =
 ---
 **Tags:** #Religion #{{Religion}} #{{Deity}}
 ---`
+
+const CultureTemplate =
+    `# {{Culture}}
+---
+| Attribute | Value |
+| --- | --- |
+| ID | {{Id}} |
+| Type | {{Type}} |
+| Namebase | {{Namebase}} |
+| Emblem | {{Emblem}} |
+| Color | {{Color}} |
+| Population | {{Population}} |
+| Area occupied | {{Area}} |
+| Expansionism | {{Expansionism}} |
+---
+**Tags:** #Culture #{{Culture}} #{{Type}}
+---`
+
 /*
  * File names
  */
-
 function makeStateFileName(object) {
     return `states/${object[STATE_FIELD]}/${object[STATE_FIELD]}.md`
 };
@@ -165,6 +188,9 @@ function makeBurgFileName(object) {
 };
 function makeReligionFileName(object) {
     return `religion/${object[RELIGION_FIELD]}/${object[RELIGION_FIELD]}.md`
+}
+function makeCultureFileName(object) {
+    return `culture/${object[CULTURE_FIELD]}/${object[CULTURE_FIELD]}.md`
 }
 
 /*
@@ -181,6 +207,7 @@ const StateGenerationConfig = makeGenerationConfig(StateTemplate, makeStateFileN
 const ProvinceGenerationConfig = makeGenerationConfig(ProvinceTemplate, makeProvinceFileName);
 const BurgGenerationConfig = makeGenerationConfig(BurgTemplate, makeBurgFileName);
 const ReligionGenerationConfig = makeGenerationConfig(ReligionTemplate, makeReligionFileName);
+const CultureGenerationConfig = makeGenerationConfig(CultureTemplate, makeCultureFileName);
 
 
 export {
@@ -188,4 +215,5 @@ export {
     ProvinceGenerationConfig,
     BurgGenerationConfig,
     ReligionGenerationConfig,
+    CultureGenerationConfig,
 }

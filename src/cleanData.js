@@ -25,7 +25,7 @@ function cleanAreaElement(element) {
     };
 }
 
-function cleanAreaFieldNames(areas) {
+function cleanAreaElements(areas) {
     return areas.map((element) => cleanAreaElement(element))
 }
 
@@ -89,6 +89,18 @@ function cleanReligionElements(religions) {
     });
 }
 
+function cleanCultureElements(cultures) {
+    return cultures.map((element) => {
+        const area = element["Area mi2"] || element["Area km2"];
+        const emblem = element["Emblems Shape"];
+        return {
+            ...element,
+            "Area": area,
+            "Emblem": emblem,
+        }
+    });
+}
+
 // Applies the cleaning function to each element and 
 // turns it into a map keyed on idKey field
 function cleanAndMap(list, cleaningFunc, idKey) {
@@ -109,11 +121,12 @@ function cleanAndMap(list, cleaningFunc, idKey) {
 }
 
 export {
-    cleanAreaFieldNames,
+    cleanAreaElements,
     cleanAreaElement,
     cleanBurgElement,
     cleanMilitaryElement,
     cleanDiplomacyElement,
     cleanReligionElements,
+    cleanCultureElements,
     cleanAndMap,
 }
