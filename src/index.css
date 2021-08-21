@@ -7,3 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: black;
 }
+
+a {
+  color: #f57c00
+}

@@ -51,9 +51,9 @@ function App() {
       const files = await buildVault(states, provinces, diplomacy, cultures, religions, burgs, rivers, military);
       setFileBlob(await downloadZip(files).blob())
     }
-    // catch (error) {
-    //   setBuildError(error);
-    // }
+    catch (error) {
+      setBuildError(error);
+    }
     finally {
       setBuildingVault(false);
     }
@@ -89,8 +89,21 @@ function App() {
             <Grid item>
               <Card>
                 <CardContent>
-                  This is the explanation.
-                  If error on find one value in parsing file, remove trailing newline
+                  <p>
+                    This tool provides a method for converting the exported CSVs from <a href="https://azgaar.github.io/Fantasy-Map-Generator/"> Azgaar's Fantasy Map Generator</a> into a linked <a href="https://obsidian.md/">Obsidian Vault</a> for whatever your purpose.
+                  </p>
+                  <p>
+                    See each of the accordians for details on where to find the file you need to upload to that section.
+                  </p>
+                  <p>
+                    Once you have loaded the files you want, click "Make Obsidian Vault". It may take some time to process depending on the size of your uploads. Once the files are generated, a new "Download Vault" button will appear. Click it to download the vault. Unzip the file in your Vault folder, or use the unzipped folder as the root of a new vault.
+                  </p>
+                  <p>
+                    This tool makes no claim of licesnse or ownership of anything passed through it. The tool does and cannot store any information you pass through it.
+                  </p>
+                  <p>
+                    If you would like to contribute to this tool, see the <a href="https://github.com/ken-bimmel/azgaar-to-obsidian"> repository</a>  for details.
+                  </p>
                 </CardContent>
                 <CardActions>
                   <Button
