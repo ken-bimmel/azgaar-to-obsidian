@@ -1,3 +1,5 @@
+// TODO: merge these with makeMap from buildNestedData?
+
 function filledToYesNo(value) {
     try {
         return value.length > 0 ? "Yes" : "No"
@@ -48,7 +50,43 @@ function cleanBurgFieldNames(burgsParsed) {
     })
 }
 
+function cleanMilitaryFieldNames(militaryParsed) {
+    return militaryParsed.map((element) => {
+        const archersCount = element["Archers"] || 0;
+        const artilleryCount = element["Artillery"] || 0;
+        const cavalryCount = element["Cavalry"] || 0;
+        const infantryCount = element["Infantry"] || 0;
+        const totalInService = element["Total"];
+        const landTotal = archersCount + artilleryCount + cavalryCount + infantryCount;
+        const navalTotal = totalInService - landTotal;
+
+        return {
+            ...militaryParsed,
+            "LandTotal": landTotal,
+            "NavalTotal": navalTotal,
+        }
+    });
+}
+
+// Applies the cleaning function to each element and 
+// turns it into a map keyed on idKey field
+function cleanAndMap(list, cleaningFunc, idKey) {
+    const map = list.reduce((map, element) => {
+        const key = element[idKey];
+        const cleanedElement = cleaningFunc(element);
+        if (map[key]) {
+            map[key] = [...map[key], cleanedElement];
+        } else {
+            map[key] = [cleanedElement];
+        }
+        return map;
+    })
+    return map
+}
+
 export {
     cleanAreaFieldNames,
     cleanBurgFieldNames,
+    cleanMilitaryFieldNames,
+    cleanAndMap,
 }
