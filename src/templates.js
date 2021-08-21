@@ -47,6 +47,26 @@ const StateTemplate =
 | [[{{Burg}}]] | [[{{Province}}]] | {{Population}} |
 {{/burgs}}
 ---
+
+## Military Forces
+---
+### Land Forces
+| Type | Number |
+| --- | --- |
+| Archers | {{military.Archers}} |
+| Artillery | {{military.Artillery}} |
+| Cavalry | {{military.Cavalry}} |
+| Foot Infantry | {{military.Infantry}} |
+| Total | {{military.LandTotal}} |
+
+### Naval Forces
+| Type | Number |
+| --- | --- |
+| Ships | {{military.Fleet}} |
+| Naval Personnel | {{military.NavalTotal}} |
+
+**Military Participation rate:** {{military.Rate}}
+---
 `
 function makeStateFileName(object) {
     return `states/${object[STATE_FIELD]}/${object[STATE_FIELD]}.md`

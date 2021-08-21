@@ -6,14 +6,17 @@ import {
     BurgGenerationConfig,
 } from "./templates";
 import {
+    cleanAndMap,
     cleanAreaFieldNames,
     cleanBurgFieldNames,
+    cleanMilitaryFieldNames,
 } from "./cleanData";
-import { buildNestedStates } from "./buildNestedData";
+import { buildNestedStates, buildFullState } from "./buildFullObjects";
+import { STATE_FIELD } from "./constants";
 
 async function parseField(field) {
     if (field === null) {
-        return [];
+        return null;
     }
     const parsedField = await Papa.parse(field, { header: true, skipEmptyLines: true });
     console.log(parsedField);
@@ -69,9 +72,11 @@ export async function buildVault(
     const statesCleaned = cleanAreaFieldNames(statesParsed);
     const provincesCleaned = cleanAreaFieldNames(provincesParsed);
     const burgsCleaned = cleanBurgFieldNames(burgsParsed);
-
-    const nestedStates = buildNestedStates(statesCleaned, provincesCleaned, burgsCleaned);
-    console.log(nestedStates);
+    const militaryMap = cleanAndMap(militaryParsed, cleanMilitaryFieldNames, STATE_FIELD);
+    console.log(militaryMap);
+    const fullState = buildFullState(statesCleaned, provincesCleaned, burgsCleaned, militaryMap);
+    // const nestedStates = buildNestedStates(statesCleaned, provincesCleaned, burgsCleaned);
+    console.log(fullState);
     return [
         ...makeFiles(statesCleaned, StateGenerationConfig),
         ...makeFiles(provincesCleaned, ProvinceGenerationConfig),

@@ -13,6 +13,21 @@ function makeMap(list, idKey) {
     return map
 }
 
+function buildFullState(states, provinces, burgs, mappedMilitary) {
+    const mappedProvinces = makeMap(provinces, STATE_FIELD);
+    const mappedBurgs = makeMap(burgs, STATE_FIELD);
+    return states.map((element) => {
+        const key = element[STATE_FIELD];
+        const military = mappedMilitary[key] && mappedMilitary[key].length > 0 ? mappedMilitary[key][0] : null;
+        return {
+            ...element,
+            provinces: mappedProvinces[key],
+            burgs: mappedBurgs[key],
+            military,
+        }
+    });
+}
+
 function buildNestedStates(states, provinces, burgs) {
     const mappedProvinces = makeMap(provinces, STATE_FIELD);
     const mappedBurgs = makeMap(burgs, STATE_FIELD);
@@ -41,4 +56,5 @@ function buildNestedProvinces(provinces, burgs) {
 export {
     buildNestedStates,
     buildNestedProvinces,
+    buildFullState,
 }
