@@ -27,16 +27,23 @@ import {
     PROVINCE_FIELD,
     DIPLOMACY_STATE_FIELD,
 } from "./constants";
+import {
+    ParsingError
+} from "./errors";
 
-async function parseField(field) {
-    if (field === null) {
-        return null;
+async function parseField(field, name) {
+    try {
+        if (field === null) {
+            return null;
+        }
+        const parsedField = await Papa.parse(field, { header: true, skipEmptyLines: true });
+        if (parsedField.errors.length > 0) {
+            throw new Error(parsedField.errors[0].message)
+        }
+        return parsedField.data;
+    } catch (e) {
+        throw new ParsingError(name, e.message);
     }
-    const parsedField = await Papa.parse(field, { header: true, skipEmptyLines: true });
-    if (parsedField.errors.length > 0) {
-        throw new Error(parsedField.errors[0].message)
-    }
-    return parsedField.data;
 }
 
 function makeFiles(objectList, configObject) {
@@ -60,14 +67,14 @@ export async function buildVault(
     rivers = null,
     military = null
 ) {
-    const statesParsed = await parseField(states);
-    const provincesParsed = await parseField(provinces);
-    const diplomacyParsed = await parseField(diplomacy);
-    const culturesParsed = await parseField(cultures);
-    const religionsParsed = await parseField(religions);
-    const burgsParsed = await parseField(burgs);
-    const riversParsed = await parseField(rivers);
-    const militaryParsed = await parseField(military);
+    const statesParsed = await parseField(states, "States");
+    const provincesParsed = await parseField(provinces, "Provinces");
+    const diplomacyParsed = await parseField(diplomacy, "Diplomacy");
+    const culturesParsed = await parseField(cultures, "Cultures");
+    const religionsParsed = await parseField(religions, "Religions");
+    const burgsParsed = await parseField(burgs, "Burgs");
+    const riversParsed = await parseField(rivers, "Rivers");
+    const militaryParsed = await parseField(military, "Military");
 
     const fullStates = buildFullStates(
         cleanStateElements(statesParsed),

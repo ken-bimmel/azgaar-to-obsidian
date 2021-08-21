@@ -5,7 +5,8 @@ import {
   CardActions,
   CardContent,
   Grid,
-  CircularProgress
+  CircularProgress,
+  CardHeader
 } from '@material-ui/core';
 import {
   createTheme,
@@ -51,7 +52,7 @@ function App() {
       setFileBlob(await downloadZip(files).blob())
     }
     catch (error) {
-      setBuildError(error.message);
+      setBuildError(error);
     }
     finally {
       setBuildingVault(false);
@@ -116,8 +117,9 @@ function App() {
             <Grid item>
               {buildError ?
                 <Card style={{ "background": "#840e0e" }}>
+                  <CardHeader title={buildError.name} />
                   <CardContent>
-                    {buildError}
+                    {buildError.message}
                   </CardContent>
                   <CardActions>
                     <Button onClick={clearError}>Clear Error</Button>
