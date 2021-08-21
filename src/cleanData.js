@@ -1,6 +1,17 @@
 // TODO: merge these with makeMap from buildNestedData?
 
-import { DIPLOMACY_STATE_FIELD } from "./constants";
+import {
+    BURG_FIELD,
+    CULTURE_FIELD,
+    DIETY_FIELD,
+    DIPLOMACY_STATE_FIELD,
+    PROVINCE_FIELD,
+    RELIGION_FIELD,
+    RIVER_FIELD,
+    STATE_FIELD,
+    TYPE_FIELD
+} from "./constants";
+import { makeTagFields } from "./tagging";
 
 function filledToYesNo(value) {
     try {
@@ -16,8 +27,10 @@ function cleanAreaElement(element) {
     const totalPop = element["Total Population"];
     const ruralPop = element["Rural Population"];
     const urbanPop = element["Urban Population"];
+    const tagFields = makeTagFields(element, [STATE_FIELD, PROVINCE_FIELD])
     return {
         ...element,
+        ...tagFields,
         "Area": area,
         "TotalPopulation": totalPop,
         "RuralPopulation": ruralPop,
@@ -44,8 +57,11 @@ function cleanBurgElement(element) {
 
     const elevation = element["Elevation (ft)"] || element["Elevation (m)"]
 
+    const tagFields = makeTagFields(element, [STATE_FIELD, PROVINCE_FIELD, BURG_FIELD])
+
     return {
         ...element,
+        ...tagFields,
         "Capital": capital,
         "Citadel": citadel,
         "Plaza": plaza,
@@ -90,8 +106,11 @@ function cleanDiplomacyElement(element) {
 function cleanReligionElements(religions) {
     return religions.map((element) => {
         const area = element["Area mi2"] || element["Area km2"];
+
+        const tagFields = makeTagFields(element, [RELIGION_FIELD, DIETY_FIELD])
         return {
             ...element,
+            ...tagFields,
             "Area": area,
         }
     });
@@ -101,10 +120,23 @@ function cleanCultureElements(cultures) {
     return cultures.map((element) => {
         const area = element["Area mi2"] || element["Area km2"];
         const emblem = element["Emblems Shape"];
+
+        const tagFields = makeTagFields(element, [CULTURE_FIELD, TYPE_FIELD]);
         return {
             ...element,
+            ...tagFields,
             "Area": area,
             "Emblem": emblem,
+        }
+    });
+}
+
+function cleanRiverElements(rivers) {
+    return rivers.map((element) => {
+        const tagFields = makeTagFields(element, [RIVER_FIELD]);
+        return {
+            ...element,
+            ...tagFields,
         }
     });
 }
@@ -138,5 +170,6 @@ export {
     cleanBurgElements,
     cleanReligionElements,
     cleanCultureElements,
+    cleanRiverElements,
     cleanAndMap,
 }

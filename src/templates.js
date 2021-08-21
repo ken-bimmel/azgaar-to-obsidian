@@ -30,7 +30,7 @@ const StateTemplate =
 | Rural Population | {{RuralPopulation}} |
 | Urban Population | {{UrbanPopulation}} |
 ---
-**Tags:** #State #{{State}}
+**Tags:** #State #{{StateTag}}
 ---
 
 ## Provinces
@@ -98,7 +98,7 @@ const ProvinceTemplate =
 | Rural Population | {{RuralPopulation}} |
 | Urban Population | {{UrbanPopulation}} |
 ---
-**Tags:** #Province #{{State}} #{{Province}}
+**Tags:** #Province #{{StateTag}} #{{ProvinceTag}}
 ---
 
 ## Burgs
@@ -126,7 +126,7 @@ const BurgTemplate =
 | Latitude | {{Latitude}} |
 | Longitude | {{Longitude}} |
 ---
-**Tags:** #Burg #{{State}} #{{Province}} #{{Burg}}
+**Tags:** #Burg #{{StateTag}} #{{ProvinceTag}} #{{BurgTag}}
 ---
 
 ## Features
@@ -155,7 +155,7 @@ const ReligionTemplate =
 | Number of believers | {{Believers}} |
 | Area under sway | {{Area}} |
 ---
-**Tags:** #Religion #{{Religion}} #{{Deity}}
+**Tags:** #Religion #{{ReligionTag}} #{{DeityTag}}
 ---`
 
 const CultureTemplate =
@@ -172,7 +172,7 @@ const CultureTemplate =
 | Area occupied | {{Area}} |
 | Expansionism | {{Expansionism}} |
 ---
-**Tags:** #Culture #{{Culture}} #{{Type}}
+**Tags:** #Culture #{{CultureTag}} #{{TypeTag}}
 ---`
 
 const RiverTemplate =
@@ -187,7 +187,7 @@ const RiverTemplate =
 | Type | {{Type}} |
 | Width | {{Width}} |
 ---
-**Tags:** #River #{{River}}
+**Tags:** #River #{{RiverTag}}
 ---`
 
 /*

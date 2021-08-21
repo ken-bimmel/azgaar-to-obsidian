@@ -19,6 +19,7 @@ import {
     cleanCultureElements,
     cleanProvinceElements,
     cleanBurgElements,
+    cleanRiverElements,
 } from "./cleanData";
 import { buildFullProvinces, buildFullStates } from "./buildFullObjects";
 import {
@@ -32,7 +33,6 @@ async function parseField(field) {
         return null;
     }
     const parsedField = await Papa.parse(field, { header: true, skipEmptyLines: true });
-    console.log(parsedField);
     if (parsedField.errors.length > 0) {
         throw new Error(parsedField.errors[0].message)
     }
@@ -84,6 +84,7 @@ export async function buildVault(
     const burgsCleaned = cleanBurgElements(burgsParsed);
     const religionsCleaned = cleanReligionElements(religionsParsed);
     const culturesCleaned = cleanCultureElements(culturesParsed);
+    const riversCleaned = cleanRiverElements(riversParsed);
 
     return [
         ...makeFiles(fullStates, StateGenerationConfig),
@@ -91,6 +92,6 @@ export async function buildVault(
         ...makeFiles(burgsCleaned, BurgGenerationConfig),
         ...makeFiles(religionsCleaned, ReligionGenerationConfig),
         ...makeFiles(culturesCleaned, CultureGenerationConfig),
-        ...makeFiles(riversParsed, RiverGenerationConfig),
+        ...makeFiles(riversCleaned, RiverGenerationConfig),
     ];
 }
