@@ -3,7 +3,8 @@ import {
     PROVINCE_FIELD,
     BURG_FIELD,
     RELIGION_FIELD,
-    CULTURE_FIELD
+    CULTURE_FIELD,
+    RIVER_FIELD
 } from "./constants";
 
 /*
@@ -174,6 +175,21 @@ const CultureTemplate =
 **Tags:** #Culture #{{Culture}} #{{Type}}
 ---`
 
+const RiverTemplate =
+    `# {{River}}
+---
+| Attribute | Value |
+| --- | --- |
+| ID | {{Id}} |
+| Basin | {{Basin}} |
+| Discharge | {{Discharge}} |
+| Length | {{Length}} |
+| Type | {{Type}} |
+| Width | {{Width}} |
+---
+**Tags:** #River #{{River}}
+---`
+
 /*
  * File names
  */
@@ -192,6 +208,9 @@ function makeReligionFileName(object) {
 function makeCultureFileName(object) {
     return `culture/${object[CULTURE_FIELD]}/${object[CULTURE_FIELD]}.md`
 }
+function makeRiverFileName(object) {
+    return `geography/rivers/${object[RIVER_FIELD]}.md`
+}
 
 /*
  * Configs
@@ -208,6 +227,7 @@ const ProvinceGenerationConfig = makeGenerationConfig(ProvinceTemplate, makeProv
 const BurgGenerationConfig = makeGenerationConfig(BurgTemplate, makeBurgFileName);
 const ReligionGenerationConfig = makeGenerationConfig(ReligionTemplate, makeReligionFileName);
 const CultureGenerationConfig = makeGenerationConfig(CultureTemplate, makeCultureFileName);
+const RiverGenerationConfig = makeGenerationConfig(RiverTemplate, makeRiverFileName);
 
 
 export {
@@ -216,4 +236,5 @@ export {
     BurgGenerationConfig,
     ReligionGenerationConfig,
     CultureGenerationConfig,
+    RiverGenerationConfig,
 }
