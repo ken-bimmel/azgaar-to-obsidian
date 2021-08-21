@@ -1,12 +1,8 @@
-import { STATE_FIELD, PROVINCE_FIELD, BURG_FIELD } from "./constants";
+import { STATE_FIELD, PROVINCE_FIELD, BURG_FIELD, RELIGION_FIELD } from "./constants";
 
-function makeGenerationConstants(template, filepathGenerator) {
-    return {
-        template,
-        filepathGenerator
-    }
-};
-
+/*
+ * Templates
+ */
 const StateTemplate =
     `# {{State}}
 ---
@@ -77,11 +73,7 @@ const StateTemplate =
 {{#diplomacy}}
 | [[{{RelatedState}}]] | {{Relationship}} |
 {{/diplomacy}}
-`
-function makeStateFileName(object) {
-    return `states/${object[STATE_FIELD]}/${object[STATE_FIELD]}.md`
-};
-const StateGenerationConfig = makeGenerationConstants(StateTemplate, makeStateFileName);
+`;
 
 const ProvinceTemplate =
     `# {{Province}}
@@ -111,10 +103,6 @@ const ProvinceTemplate =
 {{/burgs}}
 ---
 `;
-function makeProvinceFileName(object) {
-    return `states/${object[STATE_FIELD]}/${object[PROVINCE_FIELD]}/${object[PROVINCE_FIELD]}.md`
-};
-const ProvinceGenerationConfig = makeGenerationConstants(ProvinceTemplate, makeProvinceFileName);
 
 const BurgTemplate =
     `# {{ Burg }}
@@ -146,12 +134,58 @@ const BurgTemplate =
 | Temple | {{Temple}} |
 | Walls | {{Walls}} |
 `;
+
+const ReligionTemplate =
+    `# {{Religion}}
+---
+| Attribute | Value |
+| --- | --- |
+| ID | {{Id}} |
+| Deity | [[{{Deity}}]] |
+| Form | {{Form}} |
+| Type | {{Type}} |
+| Color | {{Color}} |
+| Number of believers | {{Believers}} |
+| Area under sway | {{Area}} |
+---
+**Tags:** #Religion #{{Religion}} #{{Deity}}
+---`
+/*
+ * File names
+ */
+
+function makeStateFileName(object) {
+    return `states/${object[STATE_FIELD]}/${object[STATE_FIELD]}.md`
+};
+function makeProvinceFileName(object) {
+    return `states/${object[STATE_FIELD]}/${object[PROVINCE_FIELD]}/${object[PROVINCE_FIELD]}.md`
+};
 function makeBurgFileName(object) {
     return `states/${object[STATE_FIELD]}/${object[PROVINCE_FIELD]}/${object[BURG_FIELD]}.md`
 };
-const BurgGenerationConfig = makeGenerationConstants(BurgTemplate, makeBurgFileName);
+function makeReligionFileName(object) {
+    return `religion/${object[RELIGION_FIELD]}/${object[RELIGION_FIELD]}.md`
+}
+
+/*
+ * Configs
+ */
+function makeGenerationConfig(template, filepathGenerator) {
+    return {
+        template,
+        filepathGenerator
+    }
+};
+
+const StateGenerationConfig = makeGenerationConfig(StateTemplate, makeStateFileName);
+const ProvinceGenerationConfig = makeGenerationConfig(ProvinceTemplate, makeProvinceFileName);
+const BurgGenerationConfig = makeGenerationConfig(BurgTemplate, makeBurgFileName);
+const ReligionGenerationConfig = makeGenerationConfig(ReligionTemplate, makeReligionFileName);
+
+
 export {
     StateGenerationConfig,
     ProvinceGenerationConfig,
     BurgGenerationConfig,
+    ReligionGenerationConfig,
 }

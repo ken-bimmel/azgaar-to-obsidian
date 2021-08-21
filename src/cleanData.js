@@ -79,6 +79,16 @@ function cleanDiplomacyElement(element) {
     return relationships;
 }
 
+function cleanReligionElements(religions) {
+    return religions.map((element) => {
+        const area = element["Area mi2"] || element["Area km2"];
+        return {
+            ...element,
+            "Area": area,
+        }
+    });
+}
+
 // Applies the cleaning function to each element and 
 // turns it into a map keyed on idKey field
 function cleanAndMap(list, cleaningFunc, idKey) {
@@ -104,5 +114,6 @@ export {
     cleanBurgElement,
     cleanMilitaryElement,
     cleanDiplomacyElement,
+    cleanReligionElements,
     cleanAndMap,
 }

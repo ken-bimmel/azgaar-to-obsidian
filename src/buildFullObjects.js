@@ -1,7 +1,7 @@
 import { STATE_FIELD } from "./constants";
 
 
-function buildFullState(states, mappedProvinces, mappedBurgs, mappedMilitary, mappedDiplomacy) {
+function buildFullStates(states, mappedProvinces, mappedBurgs, mappedMilitary, mappedDiplomacy) {
     return states.map((element) => {
         const key = element[STATE_FIELD];
         const military = mappedMilitary[key] && mappedMilitary[key].length > 0 ? mappedMilitary[key][0] : null;
@@ -17,5 +17,5 @@ function buildFullState(states, mappedProvinces, mappedBurgs, mappedMilitary, ma
 }
 
 export {
-    buildFullState,
+    buildFullStates,
 }
