@@ -18,6 +18,7 @@ import {
     cleanReligionElements,
     cleanCultureElements,
     cleanProvinceElements,
+    cleanBurgElements,
 } from "./cleanData";
 import { buildFullProvinces, buildFullStates } from "./buildFullObjects";
 import {
@@ -42,7 +43,7 @@ function makeFiles(objectList, configObject) {
     const { template, filepathGenerator } = configObject;
     return objectList.map((object => {
         const md = Mustache.render(template, object);
-        if (configObject === ProvinceGenerationConfig) {
+        if (configObject === BurgGenerationConfig) {
             console.log(md, object);
         }
         return new File([md], filepathGenerator(object), { type: "text/plain" })
@@ -80,12 +81,14 @@ export async function buildVault(
         cleanAndMap(burgsParsed, cleanBurgElement, PROVINCE_FIELD)
     )
 
+    const burgsCleaned = cleanBurgElements(burgsParsed);
     const religionsCleaned = cleanReligionElements(religionsParsed);
     const culturesCleaned = cleanCultureElements(culturesParsed);
 
     return [
         ...makeFiles(fullStates, StateGenerationConfig),
         ...makeFiles(fullProvinces, ProvinceGenerationConfig),
+        ...makeFiles(burgsCleaned, BurgGenerationConfig),
         ...makeFiles(religionsCleaned, ReligionGenerationConfig),
         ...makeFiles(culturesCleaned, CultureGenerationConfig),
         ...makeFiles(riversParsed, RiverGenerationConfig),

@@ -134,7 +134,7 @@ const BurgTemplate =
 | Feature | Present in Burg? |
 | --- | --- |
 | Capital | {{Capital}} |
-| Citadel | [{Citadel}} |
+| Citadel | {{Citadel}} |
 | Plaza | {{Plaza}} |
 | Port | {{Port}} |
 | Shanty Town | {{ShantyTown}} |

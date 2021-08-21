@@ -5,7 +5,7 @@ import { DIPLOMACY_STATE_FIELD } from "./constants";
 function filledToYesNo(value) {
     try {
         return value.length > 0 ? "Yes" : "No"
-    } finally {
+    } catch {
         return "No";
     }
 }
@@ -55,6 +55,10 @@ function cleanBurgElement(element) {
         "Walls": walls,
         "Elevation": elevation,
     };
+}
+
+function cleanBurgElements(burgs) {
+    return burgs.map((element) => cleanBurgElement(element))
 }
 
 function cleanMilitaryElement(element) {
@@ -131,6 +135,7 @@ export {
     cleanDiplomacyElement,
     cleanStateElements,
     cleanProvinceElements,
+    cleanBurgElements,
     cleanReligionElements,
     cleanCultureElements,
     cleanAndMap,
