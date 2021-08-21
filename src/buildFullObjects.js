@@ -3,15 +3,6 @@ import {
     STATE_FIELD
 } from "./constants";
 
-function unMap(mapped) {
-    let arr = [];
-    for (let key in mapped) {
-        arr = [...arr, ...mapped[key]];
-    }
-    return arr;
-}
-
-
 function buildFullStates(states, mappedProvinces, mappedBurgs, mappedMilitary, mappedDiplomacy) {
     return states.map((element) => {
         const key = element[STATE_FIELD];
