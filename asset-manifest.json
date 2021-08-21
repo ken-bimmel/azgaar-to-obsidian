@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/azgaar-to-obsidian/static/css/main.85efcb46.chunk.css",
+    "main.js": "/azgaar-to-obsidian/static/js/main.2d266ff3.chunk.js",
+    "main.js.map": "/azgaar-to-obsidian/static/js/main.2d266ff3.chunk.js.map",
+    "runtime-main.js": "/azgaar-to-obsidian/static/js/runtime-main.ff2e934a.js",
+    "runtime-main.js.map": "/azgaar-to-obsidian/static/js/runtime-main.ff2e934a.js.map",
+    "static/js/2.f71392e4.chunk.js": "/azgaar-to-obsidian/static/js/2.f71392e4.chunk.js",
+    "static/js/2.f71392e4.chunk.js.map": "/azgaar-to-obsidian/static/js/2.f71392e4.chunk.js.map",
+    "index.html": "/azgaar-to-obsidian/index.html",
+    "static/css/main.85efcb46.chunk.css.map": "/azgaar-to-obsidian/static/css/main.85efcb46.chunk.css.map",
+    "static/js/2.f71392e4.chunk.js.LICENSE.txt": "/azgaar-to-obsidian/static/js/2.f71392e4.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ff2e934a.js",
+    "static/js/2.f71392e4.chunk.js",
+    "static/css/main.85efcb46.chunk.css",
+    "static/js/main.2d266ff3.chunk.js"
+  ]
+}
