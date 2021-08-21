@@ -34,7 +34,7 @@ import {
 async function parseField(field, name) {
     try {
         if (field === null) {
-            return null;
+            return [];
         }
         const parsedField = await Papa.parse(field, { header: true, skipEmptyLines: true });
         if (parsedField.errors.length > 0) {

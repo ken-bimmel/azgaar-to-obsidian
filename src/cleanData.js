@@ -39,11 +39,14 @@ function cleanAreaElement(element) {
 }
 
 function cleanStateElements(areas) {
-    return areas.map((element) => cleanAreaElement(element))
+    if (areas) {
+        return areas.map((element) => cleanAreaElement(element))
+    }
+    return [];
 }
 
 function cleanProvinceElements(areas) {
-    return areas.map((element) => cleanAreaElement(element))
+    return cleanStateElements(areas);
 }
 
 function cleanBurgElement(element) {
@@ -145,8 +148,9 @@ function cleanRiverElements(rivers) {
 // turns it into a map keyed on idKey field
 function cleanAndMap(list, cleaningFunc, idKey) {
     if (list.length === 0) {
-        return null;
-    }
+        return {};
+    };
+
     const map = list.reduce((map, element) => {
         const key = element[idKey];
         const cleanedElement = cleaningFunc(element);
