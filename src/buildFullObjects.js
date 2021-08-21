@@ -1,4 +1,15 @@
-import { STATE_FIELD } from "./constants";
+import {
+    PROVINCE_FIELD,
+    STATE_FIELD
+} from "./constants";
+
+function unMap(mapped) {
+    let arr = [];
+    for (let key in mapped) {
+        arr = [...arr, ...mapped[key]];
+    }
+    return arr;
+}
 
 
 function buildFullStates(states, mappedProvinces, mappedBurgs, mappedMilitary, mappedDiplomacy) {
@@ -16,6 +27,17 @@ function buildFullStates(states, mappedProvinces, mappedBurgs, mappedMilitary, m
     });
 }
 
+function buildFullProvinces(provinces, mappedBurgs) {
+    return provinces.map((element) => {
+        const key = element[PROVINCE_FIELD]
+        return {
+            ...element,
+            burgs: mappedBurgs[key],
+        }
+    });
+}
+
 export {
     buildFullStates,
+    buildFullProvinces,
 }

@@ -29,6 +29,10 @@ function cleanStateElements(areas) {
     return areas.map((element) => cleanAreaElement(element))
 }
 
+function cleanProvinceElements(areas) {
+    return areas.map((element) => cleanAreaElement(element))
+}
+
 function cleanBurgElement(element) {
     const capital = filledToYesNo(element["Capital"]);
     const citadel = filledToYesNo(element["Citadel"]);
@@ -126,6 +130,7 @@ export {
     cleanMilitaryElement,
     cleanDiplomacyElement,
     cleanStateElements,
+    cleanProvinceElements,
     cleanReligionElements,
     cleanCultureElements,
     cleanAndMap,
