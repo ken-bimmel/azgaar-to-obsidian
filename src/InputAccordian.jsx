@@ -19,7 +19,7 @@ const Accordion = withStyles({
 })(MuiAccordion);
 
 function InputAccordian(props) {
-    const { title, changeCallback } = props;
+    const { title, changeCallback, directions } = props;
     const [value, setValue] = useState(null);
 
     function handleChange(event) {
@@ -52,16 +52,18 @@ function InputAccordian(props) {
                 </Grid>
             </AccordionSummary>
             <AccordionDetails>
-                <Input
-                    label={`Paste the contents of the ${title} CSV here`}
-                    // variant="outlined"
-                    // multiline
-                    // maxRows="4"
-                    // fullWidth
-                    onChange={handleChange}
-                    type="file"
-                    inputProps={{ accept: ".csv" }}
-                />
+                <Grid container direction="column">
+                    <Grid item>
+                        <p> {directions} </p>
+                    </Grid>
+                    <Grid item>
+                        <Input
+                            onChange={handleChange}
+                            type="file"
+                            inputProps={{ accept: ".csv" }}
+                        />
+                    </Grid>
+                </Grid>
             </AccordionDetails>
         </Accordion>
     );

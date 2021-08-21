@@ -15,6 +15,16 @@ import {
 import { downloadZip } from "client-zip";
 
 import InputAccordian from "./InputAccordian";
+import {
+  StatesDirections,
+  ProvincesDirections,
+  BurgsDirections,
+  MilitaryDirections,
+  DiplomacyDirections,
+  ReligionsDirections,
+  CulturesDirections,
+  RiversDirections,
+} from "./directions";
 import { buildVault } from "./process";
 
 function App() {
@@ -71,14 +81,14 @@ function App() {
         style={{ padding: "16px" }}
       >
         <Grid item xs={9}>
-          <InputAccordian title="States" changeCallback={setStates} />
-          <InputAccordian title="Provinces" changeCallback={setProvinces} />
-          <InputAccordian title="Diplomacy" changeCallback={setDiplomacy} />
-          <InputAccordian title="Cultures" changeCallback={setCultures} />
-          <InputAccordian title="Religions" changeCallback={setReligions} />
-          <InputAccordian title="Burgs" changeCallback={setBurgs} />
-          <InputAccordian title="Rivers" changeCallback={setRivers} />
-          <InputAccordian title="Military" changeCallback={setMilitary} />
+          <InputAccordian title="States" changeCallback={setStates} directions={StatesDirections} />
+          <InputAccordian title="Provinces" changeCallback={setProvinces} directions={ProvincesDirections} />
+          <InputAccordian title="Burgs" changeCallback={setBurgs} directions={BurgsDirections} />
+          <InputAccordian title="Military" changeCallback={setMilitary} directions={MilitaryDirections} />
+          <InputAccordian title="Diplomacy" changeCallback={setDiplomacy} directions={DiplomacyDirections} />
+          <InputAccordian title="Religions" changeCallback={setReligions} directions={ReligionsDirections} />
+          <InputAccordian title="Cultures" changeCallback={setCultures} directions={CulturesDirections} />
+          <InputAccordian title="Rivers" changeCallback={setRivers} directions={RiversDirections} />
         </Grid>
         <Grid item xs={3}>
           <Grid
