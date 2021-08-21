@@ -8,12 +8,16 @@ import {
 import {
     cleanAndMap,
     cleanAreaFieldNames,
-    cleanAreaFieldNamesElement,
-    cleanBurgFieldNames,
-    cleanMilitaryFieldNames,
+    cleanAreaElement,
+    cleanBurgElement,
+    cleanMilitaryElement,
+    cleanDiplomacyElement,
 } from "./cleanData";
 import { buildFullState } from "./buildFullObjects";
-import { STATE_FIELD } from "./constants";
+import {
+    STATE_FIELD,
+    DIPLOMACY_STATE_FIELD,
+} from "./constants";
 
 async function parseField(field) {
     if (field === null) {
@@ -31,6 +35,7 @@ function makeFiles(objectList, configObject) {
     const { template, filepathGenerator } = configObject;
     return objectList.map((object => {
         const md = Mustache.render(template, object);
+        console.log("md", md, object);
         return new File([md], filepathGenerator(object), { type: "text/plain" })
     }))
 }
@@ -71,14 +76,15 @@ export async function buildVault(
     }
 
     const statesCleaned = cleanAreaFieldNames(statesParsed);
-    const provinceMap = cleanAndMap(provincesParsed, cleanAreaFieldNamesElement, STATE_FIELD);
-    const burgMap = cleanAndMap(burgsParsed, cleanBurgFieldNames, STATE_FIELD);
-    // const burgsCleaned = cleanBurgFieldNames(burgsParsed);
-    const militaryMap = cleanAndMap(militaryParsed, cleanMilitaryFieldNames, STATE_FIELD);
-    const fullState = buildFullState(statesCleaned, provinceMap, burgMap, militaryMap);
-    console.log(fullState);
+    const provinceMap = cleanAndMap(provincesParsed, cleanAreaElement, STATE_FIELD);
+    const burgMap = cleanAndMap(burgsParsed, cleanBurgElement, STATE_FIELD);
+    const militaryMap = cleanAndMap(militaryParsed, cleanMilitaryElement, STATE_FIELD);
+    const diplomacyMap = cleanAndMap(diplomacyParsed, cleanDiplomacyElement, DIPLOMACY_STATE_FIELD);
+    // console.log(diplomacyMap);
+    const fullState = buildFullState(statesCleaned, provinceMap, burgMap, militaryMap, diplomacyMap);
+    // console.log(fullState);
     return [
-        ...makeFiles(statesCleaned, StateGenerationConfig),
+        ...makeFiles(fullState, StateGenerationConfig),
         // ...makeFiles(provincesCleaned, ProvinceGenerationConfig),
         // ...makeFiles(burgsCleaned, BurgGenerationConfig),
     ];

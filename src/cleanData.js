@@ -1,5 +1,7 @@
 // TODO: merge these with makeMap from buildNestedData?
 
+import { DIPLOMACY_STATE_FIELD } from "./constants";
+
 function filledToYesNo(value) {
     try {
         return value.length > 0 ? "Yes" : "No"
@@ -9,7 +11,7 @@ function filledToYesNo(value) {
 }
 
 
-function cleanAreaFieldNamesElement(element) {
+function cleanAreaElement(element) {
     const area = element["Area mi2"] || element["Area km2"];
     const totalPop = element["Total Population"];
     const ruralPop = element["Rural Population"];
@@ -24,10 +26,10 @@ function cleanAreaFieldNamesElement(element) {
 }
 
 function cleanAreaFieldNames(areas) {
-    return areas.map((element) => cleanAreaFieldNamesElement(element))
+    return areas.map((element) => cleanAreaElement(element))
 }
 
-function cleanBurgFieldNames(element) {
+function cleanBurgElement(element) {
     const capital = filledToYesNo(element["Capital"]);
     const citadel = filledToYesNo(element["Citadel"]);
     const plaza = filledToYesNo(element["Plaza"]);
@@ -51,12 +53,12 @@ function cleanBurgFieldNames(element) {
     };
 }
 
-function cleanMilitaryFieldNames(element) {
-    const archersCount = element["Archers"] || 0;
-    const artilleryCount = element["Artillery"] || 0;
-    const cavalryCount = element["Cavalry"] || 0;
-    const infantryCount = element["Infantry"] || 0;
-    const totalInService = element["Total"];
+function cleanMilitaryElement(element) {
+    const archersCount = parseInt(element["Archers"]) || 0;
+    const artilleryCount = parseInt(element["Artillery"]) || 0;
+    const cavalryCount = parseInt(element["Cavalry"]) || 0;
+    const infantryCount = parseInt(element["Infantry"]) || 0;
+    const totalInService = parseInt(element["Total"]);
     const landTotal = archersCount + artilleryCount + cavalryCount + infantryCount;
     const navalTotal = totalInService - landTotal;
 
@@ -65,6 +67,16 @@ function cleanMilitaryFieldNames(element) {
         "LandTotal": landTotal,
         "NavalTotal": navalTotal,
     };
+}
+
+function cleanDiplomacyElement(element) {
+    let relationships = [];
+    for (let key of Object.keys(element)) {
+        if (key !== DIPLOMACY_STATE_FIELD && element[key] !== "x") {
+            relationships.push({ RelatedState: key, Relationship: element[key] });
+        }
+    }
+    return relationships;
 }
 
 // Applies the cleaning function to each element and 
@@ -88,8 +100,9 @@ function cleanAndMap(list, cleaningFunc, idKey) {
 
 export {
     cleanAreaFieldNames,
-    cleanAreaFieldNamesElement,
-    cleanBurgFieldNames,
-    cleanMilitaryFieldNames,
+    cleanAreaElement,
+    cleanBurgElement,
+    cleanMilitaryElement,
+    cleanDiplomacyElement,
     cleanAndMap,
 }

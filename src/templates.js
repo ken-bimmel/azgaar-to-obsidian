@@ -48,6 +48,7 @@ const StateTemplate =
 {{/burgs}}
 ---
 
+{{#military}}
 ## Military Forces
 ---
 ### Land Forces
@@ -67,6 +68,15 @@ const StateTemplate =
 
 **Military Participation rate:** {{military.Rate}}
 ---
+{{/military}}
+
+## Diplomacy
+---
+| State | Relationship |
+| --- | --- |
+{{#diplomacy}}
+| [[{{RelatedState}}]] | {{Relationship}} |
+{{/diplomacy}}
 `
 function makeStateFileName(object) {
     return `states/${object[STATE_FIELD]}/${object[STATE_FIELD]}.md`
