@@ -29,7 +29,6 @@ function App() {
   const [provinces, setProvinces] = useState(null);
   const [diplomacy, setDiplomacy] = useState(null);
   const [cultures, setCultures] = useState(null);
-  const [zones, setZones] = useState(null);
   const [religions, setReligions] = useState(null);
   const [burgs, setBurgs] = useState(null);
   const [rivers, setRivers] = useState(null);
@@ -43,7 +42,7 @@ function App() {
   async function makeObsidianVault() {
     setBuildingVault(true);
     try {
-      const files = await buildVault(states, provinces, diplomacy, cultures, zones, religions, burgs, rivers, military);
+      const files = await buildVault(states, provinces, diplomacy, cultures, religions, burgs, rivers, military);
       setFileBlob(await downloadZip(files).blob())
     }
     // catch (error) {
@@ -69,7 +68,6 @@ function App() {
           <InputAccordian title="Provinces" changeCallback={setProvinces} />
           <InputAccordian title="Diplomacy" changeCallback={setDiplomacy} />
           <InputAccordian title="Cultures" changeCallback={setCultures} />
-          <InputAccordian title="Zones" changeCallback={setZones} />
           <InputAccordian title="Religions" changeCallback={setReligions} />
           <InputAccordian title="Burgs" changeCallback={setBurgs} />
           <InputAccordian title="Rivers" changeCallback={setRivers} />

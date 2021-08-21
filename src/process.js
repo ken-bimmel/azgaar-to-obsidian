@@ -51,7 +51,6 @@ export async function buildVault(
     provinces = null,
     diplomacy = null,
     cultures = null,
-    zones = null,
     religions = null,
     burgs = null,
     rivers = null,
@@ -61,7 +60,6 @@ export async function buildVault(
     let provincesParsed;
     let diplomacyParsed;
     let culturesParsed;
-    let zonesParsed;
     let religionsParsed;
     let burgsParsed;
     let riversParsed;
@@ -71,7 +69,6 @@ export async function buildVault(
         provincesParsed = await parseField(provinces);
         diplomacyParsed = await parseField(diplomacy);
         culturesParsed = await parseField(cultures);
-        zonesParsed = await parseField(zones);
         religionsParsed = await parseField(religions);
         burgsParsed = await parseField(burgs);
         riversParsed = await parseField(rivers);
