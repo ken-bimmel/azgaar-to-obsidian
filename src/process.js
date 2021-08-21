@@ -8,10 +8,11 @@ import {
 import {
     cleanAndMap,
     cleanAreaFieldNames,
+    cleanAreaFieldNamesElement,
     cleanBurgFieldNames,
     cleanMilitaryFieldNames,
 } from "./cleanData";
-import { buildNestedStates, buildFullState } from "./buildFullObjects";
+import { buildFullState } from "./buildFullObjects";
 import { STATE_FIELD } from "./constants";
 
 async function parseField(field) {
@@ -70,16 +71,15 @@ export async function buildVault(
     }
 
     const statesCleaned = cleanAreaFieldNames(statesParsed);
-    const provincesCleaned = cleanAreaFieldNames(provincesParsed);
-    const burgsCleaned = cleanBurgFieldNames(burgsParsed);
+    const provinceMap = cleanAndMap(provincesParsed, cleanAreaFieldNamesElement, STATE_FIELD);
+    const burgMap = cleanAndMap(burgsParsed, cleanBurgFieldNames, STATE_FIELD);
+    // const burgsCleaned = cleanBurgFieldNames(burgsParsed);
     const militaryMap = cleanAndMap(militaryParsed, cleanMilitaryFieldNames, STATE_FIELD);
-    console.log(militaryMap);
-    const fullState = buildFullState(statesCleaned, provincesCleaned, burgsCleaned, militaryMap);
-    // const nestedStates = buildNestedStates(statesCleaned, provincesCleaned, burgsCleaned);
+    const fullState = buildFullState(statesCleaned, provinceMap, burgMap, militaryMap);
     console.log(fullState);
     return [
         ...makeFiles(statesCleaned, StateGenerationConfig),
-        ...makeFiles(provincesCleaned, ProvinceGenerationConfig),
-        ...makeFiles(burgsCleaned, BurgGenerationConfig),
+        // ...makeFiles(provincesCleaned, ProvinceGenerationConfig),
+        // ...makeFiles(burgsCleaned, BurgGenerationConfig),
     ];
 }
