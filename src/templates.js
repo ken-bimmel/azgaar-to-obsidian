@@ -29,20 +29,25 @@ const StateTemplate =
 | Total Population | {{TotalPopulation}} |
 | Rural Population | {{RuralPopulation}} |
 | Urban Population | {{UrbanPopulation}} |
+
 ---
 **Tags:** #State #{{{StateTag}}}
+
 ---
 
 ## Provinces
+
 ---
 | Province | Area | Population |
 | --- | --- | --- |
 {{#provinces}}
 | [[{{{Province}}}]] | {{Area}} | {{TotalPopulation}} |
 {{/provinces}}
+
 ---
 
 ## Burgs
+
 ---
 | Burg | Province | Population |
 | --- | --- | --- |
@@ -53,6 +58,7 @@ const StateTemplate =
 
 {{#military}}
 ## Military Forces
+
 ---
 ### Land Forces
 | Type | Number |
@@ -70,10 +76,12 @@ const StateTemplate =
 | Naval Personnel | {{military.NavalTotal}} |
 
 **Military Participation rate:** {{military.Rate}}
+
 ---
 {{/military}}
 
 ## Diplomacy
+
 ---
 | State | Relationship |
 | --- | --- |
@@ -97,17 +105,21 @@ const ProvinceTemplate =
 | Total Population | {{TotalPopulation}} |
 | Rural Population | {{RuralPopulation}} |
 | Urban Population | {{UrbanPopulation}} |
+
 ---
 **Tags:** #Province #{{{StateTag}}} #{{{ProvinceTag}}}
+
 ---
 
 ## Burgs
+
 ---
 | Burg | Population |
 | --- | --- |
 {{#burgs}}
 | [[{{{Burg}}}]] | {{Population}} |
 {{/burgs}}
+
 ---
 `;
 
@@ -125,8 +137,10 @@ const BurgTemplate =
 | Elevation (ft) | {{Elevation}} |
 | Latitude | {{Latitude}} |
 | Longitude | {{Longitude}} |
+
 ---
 **Tags:** #Burg #{{{StateTag}}} #{{{ProvinceTag}}} #{{{BurgTag}}}
+
 ---
 
 ## Features
@@ -154,8 +168,10 @@ const ReligionTemplate =
 | Color | {{Color}} |
 | Number of believers | {{Believers}} |
 | Area under sway | {{Area}} |
+
 ---
 **Tags:** #Religion #{{{ReligionTag}}} #{{{DeityTag}}}
+
 ---`
 
 const CultureTemplate =
@@ -171,8 +187,10 @@ const CultureTemplate =
 | Population | {{Population}} |
 | Area occupied | {{Area}} |
 | Expansionism | {{Expansionism}} |
+
 ---
 **Tags:** #Culture #{{{CultureTag}}} #{{TypeTag}}
+
 ---`
 
 const RiverTemplate =
@@ -186,8 +204,10 @@ const RiverTemplate =
 | Length | {{Length}} |
 | Type | {{Type}} |
 | Width | {{Width}} |
+
 ---
 **Tags:** #River #{{{RiverTag}}} #{{{BasinTag}}}
+
 ---`
 
 /*
