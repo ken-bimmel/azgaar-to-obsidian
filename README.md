@@ -1,3 +1,6 @@
+# Online
+Available here: https://ken-bimmel.github.io/azgaar-to-obsidian/
+
 # Running locally
 This is a Create-React-App under the hood, so usual commands apply. To get running locally:
 1. Clone
